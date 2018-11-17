@@ -15,7 +15,7 @@ It will take just few lines of code to setup your first scrapo project :)
 Download the project
 
 ```
-go get git@github.com:IGPla/scrapo.git
+go get github.com/IGPla/scrapo
 ```
 
 Download all dependencies (if you have not done it yet)
