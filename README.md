@@ -101,13 +101,17 @@ Let's take a look at each one
 
 ## Storage
 
-Storage will be a set of configuration settings that you will provide to scrapo to store all processed content.
+Storage will be a piece of code that will define where your results will be stored. You can provide your own storage implementations, just implementing the storage.Storage interface. 
+
+Additionally, you've already implemented several storages for common situations. It's up to you to use them of implement your own for a more customized experience.
+
+After storage implementation, it must be configured for your project.
 
 An important step that you must take after configure your storage is to assign that storage to scrapo project's configuration. 
 
-Right now, we've implemented the following storage backends
+Right now, we've the following storage implementations
 
-- File: this storage backend will store all content to filesystem. It will take the following parameters:
+- File: this storage will store all content to filesystem. It will take the following parameters:
   - Prefix: A filesystem base path, where all content will be downloaded
 
 The following snippet is an example of File storage configuration
@@ -140,9 +144,9 @@ type ResourceProcessor interface {
 
 Return parameters should contain the following
 
-- parsedResources: a list of Task instances, ready to be stored. For example, in a minimal project where you want only the titles of the .html pages, parsedResources will contain a single Task with .html page title as the Content field
+- parsedResources: a list of Task instances, ready to be stored. For example, in a minimal project where you want only the titles of the .html pages, parsedResources will contain a single Task with .html page title as the Content field. (Important note: if you want to return different resources to be stored, be sure that you provide different URLs, as they will be used as identifiers. One common pattern is to use the same URL for all them and append a suffix distinguish each resource coming from the same source)
 
-- newRawResources: a list of all new resources that should be processed. These items will be the base for the next crawling steps. The most simple crawler will return here a slice of Task items, each one with URL field pointing to .html file links (href properties of anchor tags)
+- newRawResources: a list of all new resources that should be processed. These items will be the base for the next crawling steps. The most simple crawler will return here a slice of Task items, each one with URL field pointing to .html file links (href properties of anchor tags). It's important to say that URL is the only expected parameter in the Tasks retrieved; the rest of them will be overridden by the crawling process.
 
 Finally, your processor must be assigned to scrapo project configuration, as follows
 
