@@ -31,10 +31,10 @@ scraposample.go is a good place to start from. Let's look inside
 package main
 
 import (
-	"github.com/igpla/scrapo/config"
-	"github.com/igpla/scrapo/crawler"
-	"github.com/igpla/scrapo/processor"
-	"github.com/igpla/scrapo/storage"
+	"github.com/IGPla/scrapo/config"
+	"github.com/IGPla/scrapo/crawler"
+	"github.com/IGPla/scrapo/processor"
+	"github.com/IGPla/scrapo/storage"
 )
 
 func main() {
@@ -45,7 +45,7 @@ func main() {
 	fileStorage.Prefix = "/tmp/myscrapingproject"
 	config.MainConfig.Storage = fileStorage
 	// Base HTML class to parse content
-	config.MainConfig.ResourceProcessor = new(processor.PlainResourceProcessor)
+	config.MainConfig.ResourceProcessor = new(processor.DownloadResourceProcessor)
 	// Start crawler
 	crawler.Start()
 }
